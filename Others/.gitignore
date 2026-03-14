@@ -1,0 +1,6 @@
+# Các file tạm của RubyMine
+.idea/
+
+# Các file thực thi và log
+*.log
+*.tmp
