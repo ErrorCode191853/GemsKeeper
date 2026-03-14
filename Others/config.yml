@@ -1,0 +1,8 @@
+# config.yml
+rules:
+  .txt: Documents
+  .rb: Scripts
+  .jpg: Images
+  .png: Images
+  .pdf: Books
+  .mp3: Music

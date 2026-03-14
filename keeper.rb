@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'yaml'
 
 class GemsKeeper
   # Define 'boxes' for files
@@ -11,11 +12,18 @@ class GemsKeeper
     '.pdf'  => 'Books'
   }
 
-  def initialize(path)
+  def initialize(path, config_file)
     @path = path
+    # Load configuration from YAML file
+    @config = YAML.load_file(config_file)
+    @rules = @config['rules']
   end
 
   def organize
+    puts "--- GemsKeeper is reading configuration... ---"
+    # ... logic using @rules instead of a constant ...
+    puts "--- Found [#{@rules.keys.size}] rules in config. ---"
+
     puts "--- GemsKeeper is sorting... ---"
 
     files = Dir.children(@path)
@@ -62,5 +70,5 @@ class GemsKeeper
 end
 
 # Carries out the task.
-keeper = GemsKeeper.new(".")
+keeper = GemsKeeper.new(".", "config.yml")
 keeper.organize
