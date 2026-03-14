@@ -25,7 +25,7 @@ class GemsKeeper
       full_path = File.join(@path, file_name)
 
       # Ignore it if it is a directory or the main file of the project.
-      next if File.directory?(full_path) || file_name == 'guard.rb'
+      next if File.directory?(full_path) || file_name == 'keeper.rb'
 
       extension = File.extname(file_name).downcase
 
@@ -38,10 +38,26 @@ class GemsKeeper
 
       # Move files to boxes
       FileUtils.mv(full_path, File.join(dest_folder, file_name))
-      puts "✨ moved [#{file_name}] into 'box' [#{folder_name}]"
+      puts "✨ moved [#{file_name}] to [#{folder_name}]"
     end
 
     puts "--- finished! Directory is 'cleaned'. ---"
+  end
+
+  private
+  def unique_path(folder, name)
+    base_name = File.basename(name, ".*")
+    extension = File.extname(name)
+    target_path = File.join(folder, name)
+    counter = 1
+
+    # While the file exists, keep incrementing the counter
+    while File.exist?(target_path)
+      target_path = File.join(folder, "#{base_name}_#{counter}#{extension}")
+      counter += 1
+    end
+
+    target_path
   end
 end
 
